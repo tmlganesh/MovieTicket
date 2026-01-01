@@ -16,9 +16,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
+    options.AddPolicy("AllowFrontend",
         policy => policy
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://localhost:4200",
+                builder.Configuration["FrontendUrl"] ?? "http://localhost:4200"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -29,7 +33,7 @@ var app = builder.Build();
 // Enable Swagger ALWAYS (for development)
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseCors("AllowAngular");
+app.UseCors("AllowFrontend");
 
 
 // Comment HTTPS redirection for now (avoids your warning)
