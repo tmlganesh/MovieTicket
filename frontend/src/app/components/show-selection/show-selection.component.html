@@ -1,0 +1,29 @@
+<div class="show-selection-container">
+  <button class="back-btn" (click)="onBackClick()">← Back</button>
+
+  <div class="movie-header" *ngIf="selectedMovie">
+    <h2 class="movie-title">{{ selectedMovie.title }}</h2>
+    <span class="movie-language">{{ selectedMovie.language }}</span>
+  </div>
+
+  <h3 class="section-subtitle">Select a show</h3>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && shows.length === 0" class="no-shows">
+    <p>No shows available</p>
+  </div>
+
+  <div *ngIf="!loading && shows.length > 0" class="shows-grid">
+    <div 
+      *ngFor="let show of shows" 
+      class="show-card"
+      (click)="onShowClick(show)">
+      <div class="show-date">{{ formatDateTime(show.showTime).date }}</div>
+      <div class="show-time">{{ formatDateTime(show.showTime).time }}</div>
+    </div>
+  </div>
+</div>

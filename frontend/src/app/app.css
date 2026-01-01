@@ -1,0 +1,188 @@
+﻿.app-container {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.app-header {
+  background: #111;
+  padding: 16px 0;
+}
+
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-greeting {
+  color: #888;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #222;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  cursor: pointer;
+}
+
+.logo-icon {
+  margin-right: 8px;
+}
+
+.tagline {
+  display: none;
+}
+
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.progress-step.active {
+  color: #111;
+}
+
+.progress-step.completed {
+  color: #22c55e;
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.progress-step.active .step-number {
+  background: #111;
+  color: #fff;
+}
+
+.progress-step.completed .step-number {
+  background: #22c55e;
+  color: #fff;
+}
+
+.step-label {
+  display: none;
+}
+
+.progress-line {
+  width: 40px;
+  height: 1px;
+  background: #eee;
+}
+
+.progress-line.active {
+  background: #22c55e;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.welcome-card {
+  background: transparent;
+  box-shadow: none;
+}
+
+.welcome-card h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: #111;
+}
+
+.welcome-card p {
+  color: #666;
+  margin: 0 0 30px 0;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #999;
+  font-size: 13px;
+  border-top: 1px solid #eee;
+  background: transparent;
+}
+
+.app-footer p {
+  color: #999;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #eee;
+  border-top-color: #111;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 24px 16px;
+  }
+}

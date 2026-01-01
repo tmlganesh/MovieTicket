@@ -1,0 +1,25 @@
+﻿.location-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.location-selector label {
+  font-size: 14px;
+  color: #666;
+}
+
+.location-dropdown {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.location-dropdown:focus {
+  outline: none;
+  border-color: #111;
+}

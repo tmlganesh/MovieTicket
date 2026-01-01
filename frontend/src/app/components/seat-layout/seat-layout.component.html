@@ -1,0 +1,63 @@
+<div class="seat-layout-container">
+  <button class="back-btn" (click)="onBackClick()">← Back</button>
+
+  <div class="booking-header" *ngIf="selectedMovie && selectedShow">
+    <div class="movie-info">
+      <h2 class="movie-title">{{ selectedMovie.title }}</h2>
+      <span class="movie-language">{{ selectedMovie.language }}</span>
+    </div>
+    <div class="show-info">{{ formatDateTime(selectedShow.showTime) }}</div>
+  </div>
+
+  <div *ngIf="bookingMessage" 
+       class="booking-message" 
+       [class.success]="bookingSuccess"
+       [class.error]="!bookingSuccess">
+    {{ bookingMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && seatRows.length > 0" class="seat-section">
+    <div class="screen-container">
+      <div class="screen"></div>
+      <span class="screen-label">Screen</span>
+    </div>
+
+    <div class="seats-grid">
+      <div *ngFor="let seatRow of seatRows" class="seat-row">
+        <span class="row-label">{{ seatRow.row }}</span>
+        <ng-container *ngFor="let seat of seatRow.seats">
+          <button 
+            [class]="getSeatClass(seat)"
+            [disabled]="!isSeatClickable(seat)"
+            (click)="onSeatClick(seat)">
+            {{ getSeatDisplayNumber(seat) }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="seat-legend">
+      <div class="legend-item">
+        <div class="legend-seat available"></div>
+        <span>Available</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-seat selected"></div>
+        <span>Selected</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-seat booked"></div>
+        <span>Booked</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && seatRows.length === 0" class="no-seats">
+    <p>No seats available</p>
+  </div>
+</div>

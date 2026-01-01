@@ -1,0 +1,27 @@
+<div class="movie-list-container">
+  <h2 class="section-title">Movies in {{ selectedLocation }}</h2>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && movies.length === 0" class="no-movies">
+    <p>No movies available in {{ selectedLocation }}</p>
+  </div>
+
+  <div *ngIf="!loading && movies.length > 0" class="movie-grid">
+    <div 
+      *ngFor="let movie of movies" 
+      class="movie-card"
+      (click)="onMovieClick(movie)">
+      <div class="movie-poster">
+        <span class="poster-icon">🎬</span>
+      </div>
+      <div class="movie-info">
+        <h3 class="movie-title">{{ movie.title }}</h3>
+        <span class="movie-language">{{ movie.language }}</span>
+      </div>
+    </div>
+  </div>
+</div>

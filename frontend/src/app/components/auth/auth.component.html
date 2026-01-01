@@ -1,0 +1,51 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>MovieBook</h1>
+      <h2>{{ isLoginMode ? 'Sign in' : 'Create account' }}</h2>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          [(ngModel)]="email" 
+          name="email"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          [(ngModel)]="password" 
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="loading">
+        {{ loading ? 'Please wait...' : (isLoginMode ? 'Sign in' : 'Create account') }}
+      </button>
+    </form>
+
+    <div class="toggle-mode">
+      <p>
+        {{ isLoginMode ? "No account?" : 'Have an account?' }}
+        <button type="button" (click)="toggleMode()" class="toggle-btn">
+          {{ isLoginMode ? 'Sign up' : 'Sign in' }}
+        </button>
+      </p>
+    </div>
+  </div>
+</div>

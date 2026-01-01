@@ -1,0 +1,11 @@
+<div class="location-selector">
+  <label for="location">Select Location:</label>
+  <select 
+    id="location" 
+    [(ngModel)]="selectedLocation" 
+    (change)="onLocationChange()"
+    class="location-dropdown">
+    <option value="">-- Choose a City --</option>
+    <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+  </select>
+</div>

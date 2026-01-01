@@ -1,0 +1,102 @@
+<div class="app-container">
+  <!-- Auth View -->
+  <div *ngIf="currentView === 'auth'">
+    <app-auth (authSuccess)="onAuthSuccess($event)"></app-auth>
+  </div>
+
+  <!-- Main App (after login) -->
+  <div *ngIf="currentView !== 'auth'">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <h1 class="logo" (click)="resetBooking()">MovieBook</h1>
+        <div class="header-right">
+          <span class="user-greeting" *ngIf="currentUser">{{ currentUser.email }}</span>
+          <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Progress Indicator -->
+      <div class="progress-bar" *ngIf="currentView !== 'location'">
+        <div class="progress-step" [class.active]="true" [class.completed]="currentView !== 'movies'">
+          <span class="step-number">1</span>
+          <span class="step-label">Location</span>
+        </div>
+        <div class="progress-line" [class.active]="currentView !== 'movies'"></div>
+        <div class="progress-step" [class.active]="currentView === 'movies' || currentView === 'shows' || currentView === 'seats'" [class.completed]="currentView === 'shows' || currentView === 'seats'">
+          <span class="step-number">2</span>
+          <span class="step-label">Movie</span>
+        </div>
+        <div class="progress-line" [class.active]="currentView === 'shows' || currentView === 'seats'"></div>
+        <div class="progress-step" [class.active]="currentView === 'shows' || currentView === 'seats'" [class.completed]="currentView === 'seats'">
+          <span class="step-number">3</span>
+          <span class="step-label">Show</span>
+        </div>
+        <div class="progress-line" [class.active]="currentView === 'seats'"></div>
+        <div class="progress-step" [class.active]="currentView === 'seats'">
+          <span class="step-number">4</span>
+          <span class="step-label">Seat</span>
+        </div>
+      </div>
+
+      <!-- Location Selection View -->
+      <div *ngIf="currentView === 'location'" class="welcome-section">
+        <div class="welcome-card">
+          <h2>Select your city</h2>
+          <p>Choose a location to browse available movies</p>
+          <app-location-selector 
+            (locationSelected)="onLocationSelected($event)">
+          </app-location-selector>
+        </div>
+      </div>
+
+      <!-- Movie List View -->
+      <div *ngIf="currentView === 'movies'">
+      <app-location-selector 
+        [selectedLocation]="selectedLocation"
+        (locationSelected)="onLocationSelected($event)">
+      </app-location-selector>
+      <app-movie-list
+        [movies]="movies"
+        [selectedLocation]="selectedLocation"
+        [loading]="moviesLoading"
+        (movieSelected)="onMovieSelected($event)">
+      </app-movie-list>
+    </div>
+
+    <!-- Show Selection View -->
+    <div *ngIf="currentView === 'shows'">
+      <app-show-selection
+        [shows]="shows"
+        [selectedMovie]="selectedMovie"
+        [loading]="showsLoading"
+        (showSelected)="onShowSelected($event)"
+        (goBack)="goBackToMovies()">
+      </app-show-selection>
+    </div>
+
+    <!-- Seat Layout View -->
+    <div *ngIf="currentView === 'seats'">
+      <app-seat-layout
+        [seats]="seats"
+        [selectedShow]="selectedShow"
+        [selectedMovie]="selectedMovie"
+        [loading]="seatsLoading"
+        [bookingInProgress]="bookingInProgress"
+        [bookingMessage]="bookingMessage"
+        [bookingSuccess]="bookingSuccess"
+        (seatSelected)="onSeatSelected($event)"
+        (goBack)="goBackToShows()">
+      </app-seat-layout>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>© 2024 MovieBook - Movie Ticket Booking System</p>
+  </footer>
+  </div>
+</div>
