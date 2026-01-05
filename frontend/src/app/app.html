@@ -89,7 +89,8 @@
         [bookingMessage]="bookingMessage"
         [bookingSuccess]="bookingSuccess"
         (seatSelected)="onSeatSelected($event)"
-        (goBack)="goBackToShows()">
+        (goBack)="goBackToShows()"
+        (wrongBooking)="onWrongBooking($event)">
       </app-seat-layout>
     </div>
   </main>

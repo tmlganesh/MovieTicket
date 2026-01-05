@@ -25,13 +25,24 @@ export class SeatLayoutComponent implements OnChanges {
 
   @Output() seatSelected = new EventEmitter<Seat>();
   @Output() goBack = new EventEmitter<void>();
+  @Output() wrongBooking = new EventEmitter<string>();
 
   selectedSeat: Seat | null = null;
   seatRows: SeatRow[] = [];
+  
+  // Language selection
+  availableLanguages: string[] = ['English', 'Hindi', 'Tamil', 'Telugu', 'Malayalam', 'Kannada'];
+  selectedLanguage: string = 'English';
+  showSuccessModal: boolean = false;
+  bookedSeatNumber: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['seats'] && this.seats.length > 0) {
       this.organizeSeatsByRow();
+    }
+    // Update bookedSeatNumber when booking succeeds
+    if (changes['bookingSuccess'] && this.bookingSuccess && this.bookingMessage) {
+      this.bookedSeatNumber = this.bookingMessage;
     }
   }
 
@@ -123,5 +134,24 @@ export class SeatLayoutComponent implements OnChanges {
       minute: '2-digit',
       hour12: true
     });
+  }
+
+  onLanguageChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.selectedLanguage = target.value;
+  }
+
+  showBookingSuccess(seatNumber: string): void {
+    this.bookedSeatNumber = seatNumber;
+    this.showSuccessModal = true;
+  }
+
+  closeSuccessModal(): void {
+    this.showSuccessModal = false;
+  }
+
+  onWrongBooking(): void {
+    this.wrongBooking.emit(this.bookedSeatNumber);
+    this.closeSuccessModal();
   }
 }

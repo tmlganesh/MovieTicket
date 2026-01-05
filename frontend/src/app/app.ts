@@ -156,7 +156,7 @@ export class App implements OnInit {
 
     this.seatService.bookSeat(seat.id).subscribe({
       next: () => {
-        this.bookingMessage = `Seat ${seat.seatNumber} booked successfully! 🎉`;
+        this.bookingMessage = seat.seatNumber;
         this.bookingSuccess = true;
         this.bookingInProgress = false;
         
@@ -186,6 +186,12 @@ export class App implements OnInit {
     this.selectedShow = null;
     this.seats = [];
     this.bookingMessage = '';
+  }
+
+  // Wrong booking handler
+  onWrongBooking(seatNumber: string): void {
+    this.bookingMessage = `Booking for seat ${seatNumber} reported as wrong. Please contact support.`;
+    this.bookingSuccess = false;
   }
 
   // Reset to start

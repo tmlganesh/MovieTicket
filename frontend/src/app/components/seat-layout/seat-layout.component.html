@@ -9,11 +9,37 @@
     <div class="show-info">{{ formatDateTime(selectedShow.showTime) }}</div>
   </div>
 
-  <div *ngIf="bookingMessage" 
-       class="booking-message" 
-       [class.success]="bookingSuccess"
-       [class.error]="!bookingSuccess">
+  <!-- Language Selection -->
+  <div class="language-selection">
+    <label for="language-select" class="language-label">Select Language:</label>
+    <select 
+      id="language-select" 
+      class="language-dropdown"
+      [value]="selectedLanguage"
+      (change)="onLanguageChange($event)">
+      <option *ngFor="let lang of availableLanguages" [value]="lang">{{ lang }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="bookingMessage && !bookingSuccess" 
+       class="booking-message error">
     {{ bookingMessage }}
+  </div>
+
+  <!-- Success Modal -->
+  <div class="success-modal-overlay" *ngIf="bookingSuccess && bookingMessage" (click)="closeSuccessModal()">
+    <div class="success-modal" (click)="$event.stopPropagation()">
+      <button class="modal-close-x" (click)="closeSuccessModal()">×</button>
+      <div class="success-icon">✓</div>
+      <h3 class="success-title">Booking Confirmed!</h3>
+      <div class="success-details">
+        <p class="success-movie">{{ selectedMovie?.title }}</p>
+        <p class="success-info">{{ selectedLanguage }} • {{ formatDateTime(selectedShow?.showTime || '') }}</p>
+        <p class="success-seat">Seat: <strong>{{ bookedSeatNumber || 'Confirmed' }}</strong></p>
+      </div>
+      <p class="success-message">Enjoy your movie!</p>
+      <button class="success-close-btn" (click)="closeSuccessModal()">Continue Booking</button>
+    </div>
   </div>
 
   <div *ngIf="loading" class="loading">
